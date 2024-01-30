@@ -84,3 +84,22 @@ async def help(ctx):
         name='Atlas'
     )
     await ctx.send(embed=embed, view=HelpOptions())
+
+@bot.tree.command(name='help', description='Learn how to use Hack the Cat.')
+async def help(interaction):
+    atlas = bot.get_user(860794014764105729)
+    embed = (
+        discord.Embed(
+            title='Notice',
+            description='This bot is reserved for the official Hack the Cat and is currently privately managed.\n',
+            colour=discord.Colour.from_rgb(1, 1, 1)
+        )
+    )
+    embed.set_image(
+        url='https://i.pinimg.com/564x/89/9f/3d/899f3d319b77a8183c71fe5a57a5e689.jpg'
+    )
+    embed.set_author(
+        icon_url=atlas.avatar.url,
+        name='Atlas'
+    )
+    await interaction.response.send_message(embed=embed, view=HelpOptions())
