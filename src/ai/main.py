@@ -3,7 +3,7 @@ from discord.ext import commands
 import google.generativeai as genai
 
 model = genai.GenerativeModel('gemini-pro')
-genai.configure(api_key='API_TOKEN')
+genai.configure(api_key='API_KEY')
 bot = commands.Bot(command_prefix='!aix ', intents=discord.Intents.all())
 bot.remove_command('help')
 
@@ -60,15 +60,29 @@ async def on_message(message):
             try:
                 await start_chat(message)
             except Exception as e:
-                await message.channel.send('Ran into an error. Try again?')
+                embed = (
+                    discord.Embed(
+                        title='Error Logs',
+                        description=f'An error has occured while processing your message:\n'
+                                    f'```ansi\n\u001b[0;1;37m\u001b[0;1;37m{e}```'
+                    )
+                )
+                await message.channel.send(embed=embed)
 
     elif any(word in message.content.lower() for word in ["black cat", "htc", "hack"]):
         async with message.channel.typing():
             try:
                 await start_chat(message)
             except Exception as e:
-                await message.channel.send('Ran into an error. Try again?')
+                embed = (
+                    discord.Embed(
+                        title='Error Logs',
+                        description=f'An error has occured while processing your message:\n'
+                                    f'```ansi\n\u001b[0;1;37m\u001b[0;1;37m{e}```'
+                    )
+                )
+                await message.channel.send(embed=embed)
 
     await bot.process_commands(message)
 
-bot.run('TOKEN')
+bot.run('BOT_TOKEN')
